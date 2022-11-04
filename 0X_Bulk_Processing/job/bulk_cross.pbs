@@ -1,0 +1,45 @@
+#!/bin/bash
+#PBS -l nodes=1:ppn=4
+#PBS -l pmem=14gb
+#PBS -l walltime=00:15:00
+#PBS -A open
+#PBS -o logs/bulk_cross.log.out
+#PBS -e logs/bulk_cross.log.err
+#PBS -t 1-NSAMPLES
+
+module load gcc
+module load samtools
+module load anaconda3
+source activate my-env
+
+# Cross all BED x all BAM to run some scripts (typically TagPileup)
+
+# Fill in placeholder constants with your directories
+WRK=/path/to/20XX-LastName_Journal/
+BAMDIR=$WRK/data/BAM
+BEDDIR=$WRK/data/BED
+OUTDIR=$WRK/OutputLocation
+
+# Script shortcuts
+SCRIPTMANAGER=/path/to/ScriptManager-v0.14.jar
+SOMESCRIPT=$WRK/bin/some_script.pl
+
+cd $WRK
+[ -d $OUTDIR ] || mkdir $OUTDIR
+
+# Determine BAM file for the current job array index
+BAMFILE=`ls $BAMDIR/*.bam | head -n $PBS_ARRAYID | tail -1`
+BAM=`basename $BAMFILE ".bam"`
+[ -f $BAMFILE.bai ] || samtools index $BAMFILE
+
+# Process BAM file for each BED file in directory
+for BEDFILE in `ls $BEDDIR/*1000bp.bed`;
+do
+	echo $BEDFILE
+	BED=`basename $BEDFILE ".bed"`
+	DIR=$OUTDIR/$BED
+	[ -d $DIR ] || mkdir $DIR
+
+	# Do stuff here
+
+done
