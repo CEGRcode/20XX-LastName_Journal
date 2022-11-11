@@ -20,10 +20,15 @@ BAMDIR=$WRK/data/BAM
 BEDDIR=$WRK/data/BED
 OUTDIR=$WRK/OutputLocation
 
-# Script shortcuts
-SCRIPTMANAGER=/path/to/ScriptManager-v0.14.jar
-SOMESCRIPT=$WRK/bin/some_script.pl
+# Setup ScriptManager for job array
+ORIGINAL_SCRIPTMANAGER=$WRK/bin/ScriptManager-v0.14.jar
+SCRIPTMANAGER=$WRK/bin/ScriptManager-v0.14-$PBS_ARRAYID.jar
+cp $ORIGINAL_SCRIPTMANAGER $SCRIPTMANAGER
 
+# Script shortcuts
+COMPOSITE=$WRK/bin/sum_Col_CDT.pl
+
+# Set up output directories
 cd $WRK
 [ -d $OUTDIR ] || mkdir $OUTDIR
 
@@ -42,4 +47,20 @@ do
 
 	# Do stuff here
 
+	# # Example TF Pileup:
+	# [ -d $DIR/COMPOSITES ] || mkdir $DIR/COMPOSITES
+	# [ -d $DIR/CDT ] || mkdir $DIR/CDT
+	# [ -d $DIR/NormComposites ] || mkdir $DIR/NormComposites
+	# BASE=$BAM\_$BED\_read1
+	# # Pileup
+	# java -jar $SCRIPTMANAGER read-analysis tag-pileup $BEDFILE $BAMFILE --cpu 4 -o $DIR/COMPOSITES/$BASE.raw.out -M $DIR/CDT/$BASE.cdt
+	# # Scale pileups
+	# java -jar $SCRIPTMANAGER read-analysis scale-matrix $DIR/CDT/$BASE\_anti.cdt -s $FACTOR -o $DIR/CDT/$BASE\_anti_Normalized.cdt
+	# java -jar $SCRIPTMANAGER read-analysis scale-matrix $DIR/CDT/$BASE\_sense.cdt -s $FACTOR -o $DIR/CDT/$BASE\_sense_Normalized.cdt
+	# # Column-wise sum normalized CDTs into composites
+	# perl $COMPOSITE $DIR/CDT/$BASE\_anti_Normalized.cdt $DIR/CDT/$BASE\_ANTI
+	# perl $COMPOSITE $DIR/CDT/$BASE\_sense_Normalized.cdt $DIR/CDT/$BASE\_SENSE
+	# # Merge into same normalized file and remove intermediates
+	# cat $DIR/CDT/$BASE\_ANTI <(tail -1 $DIR/CDT/$BASE\_SENSE) > $DIR/NormComposites/$BASE\_Normalized.out
+	# rm $DIR/CDT/$BASE\_SENSE $DIR/CDT/$BASE\_ANTI
 done
