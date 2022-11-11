@@ -19,6 +19,8 @@ WRK=/path/to/20XX-LastName_Journal/
 BAMDIR=$WRK/data/BAM
 BEDDIR=$WRK/data/BED
 FDIR=$WRK/OutputLocation
+BLACKLIST=$WRK/data/ChExMix_Peak_Filter_List_190612.bed
+CONTROL=$WRK/data/masterNoTag_20180928.bam
 
 # Setup ScriptManager for job array
 ORIGINAL_SCRIPTMANAGER=$WRK/bin/ScriptManager-v0.14.jar
@@ -40,9 +42,7 @@ BAM=`basename $BAMFILE ".bam"`
 
 # Use different normalization method depending on target/assay
 # This script ONLY covers NCIS (for TF ChIPs), if your data includes NUCLEOSOME data, USE NFR normalization!
-if
-	echo "Calculate classic TF NCIS normalization factors w/ blacklist"
-  java -jar $SCRIPTMANAGER read-analysis scaling-factor $BAMFILE -f $BLACKLIST --ncis -c $CONTROL -w 500 -o $WRK/data/NormalizationFactors/$BAM\_NCISb
-fi
+echo "Calculate classic TF NCIS normalization factors w/ blacklist"
+java -jar $SCRIPTMANAGER read-analysis scaling-factor $BAMFILE -f $BLACKLIST --ncis -c $CONTROL -w 500 -o $WRK/data/NormalizationFactors/$BAM\_NCISb
 
 rm $SCRIPTMANAGER
