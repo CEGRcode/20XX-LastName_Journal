@@ -2,19 +2,20 @@
 #PBS -l nodes=1:ppn=4
 #PBS -l pmem=14gb
 #PBS -l walltime=24:00:00
-#PBS -A my-allocation
+#PBS -A open
 #PBS -o logs/run_deletionid.log.out
 #PBS -e logs/run_deletionid.log.err
 
 module load gcc
 module load samtools
 module load anaconda3
-source activate my-env
 
-# REPLACE WITH YOUR PATH
-WRK=/path/to/20XX-LastName_Journal/
-INPUTBAM=$WRK/data/BAM
+### CHANGE ME
+source activate my-env # load conda environment with GenoPipe dependencies
 DELETIONID=/path/to/GenoPipe/DeletionID
+WRK=/path/to/20XX-LastName_Journal/
+###
+INPUTBAM=$WRK/data/BAM
 OUTPUT=$WRK/01_Run_GenoPipe/deletionid
 
 cd $WRK

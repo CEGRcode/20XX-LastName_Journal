@@ -9,6 +9,10 @@ MODULEID=/path/to/GenoPipe/ModuleID
 ```
 
 After running, the directory should have the following directory structure:
+
+<details>
+<summary> Directory Structure
+</summary>
 ```
 |--01_Run_GenoPipe
   |--job
@@ -31,4 +35,39 @@ After running, the directory should have the following directory structure:
   |--strainid
     |--XXXX_strain.tab
     ...
+```
+</details>
+
+## Getting Started Checklist
+
+- Clone & set-up GenoPipe
+  - install/setup GenoPipe dependencies
+  - download references like ref genome and place in appropriate dirs
+- update `job` scripts (`run_epitopeid.pbs`, `run_deletionid.pbs`, `run_strainid.pbs`) with the pathnames
+  - to GenoPipe
+  - to current working directory
+  - to genome (only StrainID)
+- make sure FASTQ/BAM files are downloaded to specified path
+- Execute!
+
+
+## Running scripts
+
+Each of the `job` scripts is set-up to run a different default GenoPipe module. Consider which one you need. Make sure path names within the `### CHANGE ME` comments are updated.
+
+### For few samples
+If you don't have a lot of samples and the samples are really small, GenoPipe will run in a reasonable amount of time so you could simply run the following command in the shell and wait for it to finish.
+
+Example:
+```
+bash job/run_epitopeid.pbs
+```
+
+### For many/large samples
+
+If you need more time, the script is set-up to run on servers with a PBS scheduler. Make sure the walltime you request is reasonable (`#PBS -l walltime=`) and that you are using the appropriate allocation (`#PBS -A`).
+
+Example:
+```
+qsub job/run_epitopeid.pbs
 ```

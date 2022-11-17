@@ -2,20 +2,20 @@
 #PBS -l nodes=1:ppn=4
 #PBS -l pmem=14gb
 #PBS -l walltime=24:00:00
-#PBS -A my-allocation
+#PBS -A open
 #PBS -o logs/run_epitopeid.log.out
 #PBS -e logs/run_epitopeid.log.err
 
 module load gcc
 module load samtools
 module load anaconda3
-module load bwa
-source activate my-env
 
-# REPLACE WITH YOUR PATH
-WRK=/path/to/20XX-LastName_Journal/
-INPUTFQ=$WRK/data/FASTQ
+### CHANGE ME
+source activate my-env # load conda environment with GenoPipe dependencies
 EPITOPEID=/path/to/GenoPipe/EpitopeID
+WRK=/path/to/20XX-LastName_Journal/
+###
+INPUTFQ=$WRK/data/FASTQ
 OUTPUT=$WRK/01_Run_GenoPipe/epitopeid
 
 cd $WRK
