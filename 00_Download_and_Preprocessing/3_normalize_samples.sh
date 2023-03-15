@@ -7,20 +7,22 @@
 #PBS -e logs/get_scaling_factors.log.err
 #PBS -t 1-NSAMPLES
 
-module load gcc
-module load samtools
-module load anaconda3
-source activate my-env
+# Calculate normalization factor for every *.bam file in a directory
 
-# Cross all BED x all BAM to run some scripts (typically TagPileup)
-
-# Fill in placeholder constants with your directories
+### CHANGE ME
 WRK=/path/to/20XX-LastName_Journal/
 BAMDIR=$WRK/data/BAM
 BEDDIR=$WRK/data/BED
-FDIR=$WRK/OutputLocation
+FDIR=$WRK/data/NormalizationFactors
 BLACKLIST=$WRK/data/ChExMix_Peak_Filter_List_190612.bed
-CONTROL=$WRK/data/masterNoTag_20180928.bam
+CONTROL=$WRK/data/BAM/masterNoTag_20180928.bam
+#PBS_ARRAYID=1
+###
+
+module load gcc
+module load samtools
+module load anaconda3
+#source activate my-env
 
 # Setup ScriptManager for job array
 ORIGINAL_SCRIPTMANAGER=$WRK/bin/ScriptManager-v0.14.jar
