@@ -13,6 +13,7 @@ After running, the directory should have the following directory structure:
 <details>
 <summary> Directory Structure
 </summary>
+
 ```
 |--01_Run_GenoPipe
   |--job
@@ -36,9 +37,12 @@ After running, the directory should have the following directory structure:
     |--XXXX_strain.tab
     ...
 ```
+
 </details>
 
 ## Getting Started Checklist
+
+Below is a brief checklist of tasks to setup GenoPipe. For more help or information on customization, [read the docs]:(https://pughlab.mbg.cornell.edu/GenoPipe-docs/)
 
 - Clone & set-up GenoPipe
   - install/setup GenoPipe dependencies

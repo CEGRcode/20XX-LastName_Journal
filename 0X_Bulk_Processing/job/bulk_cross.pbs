@@ -7,18 +7,20 @@
 #PBS -e logs/bulk_cross.log.err
 #PBS -t 1-NSAMPLES
 
+# Cross all BED x all BAM to run some scripts (typically TagPileup)
+
 module load gcc
 module load samtools
 module load anaconda3
-source activate my-env
 
-# Cross all BED x all BAM to run some scripts (typically TagPileup)
-
-# Fill in placeholder constants with your directories
+### CHANGE ME
 WRK=/path/to/20XX-LastName_Journal/
 BAMDIR=$WRK/data/BAM
 BEDDIR=$WRK/data/BED
-OUTDIR=$WRK/OutputLocation
+#PBS_ARRAYID=1
+###
+FDIR=$WRK/data/NormalizationFactors
+
 
 # Setup ScriptManager for job array
 ORIGINAL_SCRIPTMANAGER=$WRK/bin/ScriptManager-v0.14.jar
@@ -52,8 +54,10 @@ do
 	# [ -d $DIR/CDT ] || mkdir $DIR/CDT
 	# [ -d $DIR/NormComposites ] || mkdir $DIR/NormComposites
 	# BASE=$BAM\_$BED\_read1
+	# # Get Scaling Factor
+	# FACTOR=`grep 'Scaling factor' $FDIR/$BAM\_NCISb_ScalingFactors.out | awk -F" " '{print $3}'`
 	# # Pileup
-	# java -jar $SCRIPTMANAGER read-analysis tag-pileup $BEDFILE $BAMFILE --cpu 4 -o $DIR/COMPOSITES/$BASE.raw.out -M $DIR/CDT/$BASE.cdt
+	# java -jar $SCRIPTMANAGER read-analysis tag-pileup $BEDFILE $BAMFILE --cpu 4 -o $DIR/COMPOSITES/$BASE.raw.out -M $DIR/CDT/$BASE
 	# # Scale pileups
 	# java -jar $SCRIPTMANAGER read-analysis scale-matrix $DIR/CDT/$BASE\_anti.cdt -s $FACTOR -o $DIR/CDT/$BASE\_anti_Normalized.cdt
 	# java -jar $SCRIPTMANAGER read-analysis scale-matrix $DIR/CDT/$BASE\_sense.cdt -s $FACTOR -o $DIR/CDT/$BASE\_sense_Normalized.cdt
