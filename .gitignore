@@ -1,2 +1,5 @@
 **.DS_Store
-data/BAM/*
+data/BAM/*.bam
+data/BAM/*.bai
+data/FASTQ/*.fastq
+data/FASTQ/*.fastq.gz
