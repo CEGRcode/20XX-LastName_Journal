@@ -1,41 +1,48 @@
 #!/bin/bash
-#PBS -l nodes=1:ppn=4
-#PBS -l pmem=14gb
-#PBS -l walltime=00:15:00
-#PBS -A open
-#PBS -o logs/bulk_cross.log.out
-#PBS -e logs/bulk_cross.log.err
-#PBS -t 1-NSAMPLES
+#SBATCH -N 1
+#SBATCH --mem=14gb
+#SBATCH -t 00:15:00
+#SBATCH -A open
+#SBATCH -o logs/Example-2_bulk_tagpileup.log.out-%a
+#SBATCH -e logs/Example-2_bulk_tagpileup.log.err-%a
+#SBATCH --array 1-NSAMPLES
+
+# SLURM_ARRAY_TASK_ID=2
 
 # Cross all BED x all BAM to run some scripts (typically TagPileup)
 
-module load gcc
+### CHANGE ME
+WRK=/path/to/20XX-LastName_Journal/X_Bulk_Processing
+###
+
+# Dependencies
+# - java
+# - samtools
+
+set -exo
 module load samtools
 module load anaconda3
 
-### CHANGE ME
-WRK=/path/to/20XX-LastName_Journal/
+# Fill in placeholder constants with your directories
+FDIR=$WRK/data/NormalizationFactors
 BAMDIR=$WRK/data/BAM
 BEDDIR=$WRK/data/BED
-#PBS_ARRAYID=1
-###
-FDIR=$WRK/data/NormalizationFactors
-
+OUTDIR=$WRK/Library
 
 # Setup ScriptManager for job array
 ORIGINAL_SCRIPTMANAGER=$WRK/bin/ScriptManager-v0.14.jar
-SCRIPTMANAGER=$WRK/bin/ScriptManager-v0.14-$PBS_ARRAYID.jar
+SCRIPTMANAGER=$WRK/bin/ScriptManager-v0.14-$SLURM_ARRAY_TASK_ID.jar
 cp $ORIGINAL_SCRIPTMANAGER $SCRIPTMANAGER
 
 # Script shortcuts
 COMPOSITE=$WRK/bin/sum_Col_CDT.pl
 
 # Set up output directories
-cd $WRK
+[ -d logs ] || mkdir logs
 [ -d $OUTDIR ] || mkdir $OUTDIR
 
 # Determine BAM file for the current job array index
-BAMFILE=`ls $BAMDIR/*.bam | head -n $PBS_ARRAYID | tail -1`
+BAMFILE=`sed "${SLURM_ARRAY_TASK_ID}q;d" $METADATA | awk '{print $4}'`
 BAM=`basename $BAMFILE ".bam"`
 [ -f $BAMFILE.bai ] || samtools index $BAMFILE
 

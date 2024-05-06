@@ -22,4 +22,4 @@ Lorem ipsum...
 
 ### 01_GenoPipe
 
-### 0X_Bulk_Processing
+### X_Bulk_Processing
