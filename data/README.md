@@ -1,6 +1,40 @@
 
 This directory stores both data (FASTQ & BAM files) and generally used reference files.
 
+<details>
+<summary> Full execution summary
+</summary>
+
+```
+data
+  |--BAM
+    |--Sample1.bam
+    |--...
+    |--NormalizationFactors
+      |--Sample1_TotalTag_ScalingFactors.out
+      |--Sample1_NCIS_ScalingFactors.out
+      |--...
+  |--FASTQ
+    |--Sample1_R1.fastq.gz
+    |--Sample1_R2.fastq.gz
+    |--...
+  |--RefPT-XXXXX
+    |--MyReferencePointOfInterest.bed
+    |--200bp
+      |--MyReferencePointOfInterest_200bp.bed
+    |--2000bp
+      |--MyReferencePointOfInterest_2000bp.bed
+  |--hg19_files
+    |--hg19.fa
+    |--hg19.fa.fai
+    |--hg19.info
+    |--hg19_exclude_contig.txt
+    |--hg19_background_model.txt
+    |--hg19_exclude.bed
+```
+
+</details>
+
 #### Note: Do not add shell scripts to this directory.
 This directory should be used for project data storage and **NOT** for the storage or execution of scripts. Please organize your scripts into the appropriate analysis directory (the numbered directories).
 
