@@ -13,3 +13,8 @@ Update information in the template with manuscript information and replace this 
 
 ## Step 3: Happy Coding!
 Build out your scripts keep your files organized! We included a suggested file structure to help you get started but you may need to adjust based on the needs of your analysis. Just make sure that your directories include descriptive READMEs about the contents of each directory.
+
+## Examples
+Check other repos for ideas on how to organize your directories:
+* [2023-Krebs_BenzonaseSeq](https://github.com/CEGRcode/2023-Krebs_BenzonaseSeq)
+* [2024-Chen_Nature](https://github.com/CEGRcode/2024-Chen_Nature)
