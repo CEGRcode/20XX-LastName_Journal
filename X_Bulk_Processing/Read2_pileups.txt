@@ -1,0 +1,5 @@
+5	../data/BAM/K562_CTCF_BX_rep1_hg38.bam	../data/RefPT-Motif/1000bp/CTCF_Occupancy_1000bp.bed
+1	../data/BAM/BAM/K562_FOXA1_BX_rep1_hg38.bam   ../data/RefPT-Motif/1000bp/FOXA_K562_NucSort-OVERLAP_1000bp.bed
+1	../data/BAM/BAM/K562_FOXA1_BX_rep1_hg38.bam   ../data/RefPT-Motif/1000bp/FOXA_K562_NucSort-NFR_1000bp.bed
+
+

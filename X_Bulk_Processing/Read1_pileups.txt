@@ -1,0 +1,3 @@
+5	../data/BAM/K562_CTCF_BX_rep1_hg38.bam	../data/RefPT-Motif/1000bp/CTCF_Occupancy_1000bp.bed
+5	../data/BAM/K562_CTCF_BX_rep2_hg38.bam	../data/RefPT-Motif/1000bp/CTCF_Occupancy_1000bp.bed
+5	../data/BAM/K562_SMC3_BX_rep1_hg38.bam	../data/RefPT-Motif/1000bp/CTCF_Occupancy_1000bp.bed

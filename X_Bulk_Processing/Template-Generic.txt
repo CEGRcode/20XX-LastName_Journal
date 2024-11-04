@@ -1,0 +1,3 @@
+VALUEA	../data/BAM/PEGRID-1_Filename.bam	../data/RefPT-MyCategory/1000bp/SomeRefPT_1000bp.bed
+VALUEB	../data/BAM/PEGRID-2_Filename.bam	../data/RefPT-MyCategory/1000bp/SomeRefPT_1000bp.bed
+VALUEC	../data/BAM/PEGRID-2_Filename.bam	../data/RefPT-MyCategory/1000bp/AnotherRefPT_1000bp.bed
